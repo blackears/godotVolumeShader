@@ -81,35 +81,34 @@ jobs:
           cache-name: ${{ matrix.identifier }}-${{ matrix.target }}
         continue-on-error: true
 
-      - name: Build Map Generator
+      - name: Build
         env:
             SCONS_CACHE: "${{ github.workspace }}/.scons-cache/"
             TARGET: 'template_${{ matrix.target }}'
         shell: sh
         run: |
-            scons -C map_generation target=$TARGET platform='${{ matrix.platform }}' ${{ matrix.flags }} debug_symbols=no -j2
+            scons -C godot target=$TARGET platform='${{ matrix.platform }}' ${{ matrix.flags }} debug_symbols=no -j2
 
       - name: Strip Libraries (Windows/Linux)
         if: ${{ matrix.platform == 'windows' || matrix.platform == 'linux' }}
         shell: sh
         run: |
-          cd map_generation
-          ls -l godot2/addons/map_generation/bin/
-          strip godot2/addons/map_generation/bin/libmapgen.*
-          ls -l godot2/addons/map_generation/bin/
+          cd godot
+          strip volume-shader/addons/volume_shader/bin/libvolume_shader.*
+          ls -l volume-shader/addons/volume_shader/bin/
 
       - name: Include Files
         shell: sh
         run: |
-          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/map_generation/godot2/addons/map_generation/
+          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/godot/volume-shader/addons/volume_shader/
 
       - name: Upload Package
         uses: actions/upload-artifact@v4
         with:
           include-hidden-files: true
-          name: mapg-${{ matrix.identifier }}-${{ matrix.target }}
+          name: volumeShader-${{ matrix.identifier }}-${{ matrix.target }}
           path: |
-            ${{ github.workspace }}/map_generation/godot2/
+            ${{ github.workspace }}/godot/volume-shader/
 
   merge:
     runs-on: ubuntu-latest
@@ -120,5 +119,5 @@ jobs:
         with:
           include-hidden-files: true
           name: ${{ github.event.repository.name }}
-          pattern: mapg-*
+          pattern: volumeShader-*
           delete-merged: true
