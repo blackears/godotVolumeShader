@@ -35,22 +35,22 @@ jobs:
             TARGET: 'template_${{ matrix.target }}'
         shell: sh
         run: |
-          scons -C map_generation target=$TARGET platform='${{ matrix.platform }}' threads=no debug_symbols=no -j2
+          scons -C godot target=$TARGET platform='${{ matrix.platform }}' threads=no debug_symbols=no -j2
 
       - name: Prepare Files
         shell: sh
         run: |
-          cd map_generation
-          ls -l godot/addons/map_generation/bin/
-          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/map_generation/godot/addons/map_generation/
+          cd godot
+          ls -l volume-shader/addons/volume_shader/bin/
+          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/godot/volume-shader/addons/volume_shader/
 
       - name: Upload Package
         uses: actions/upload-artifact@v4
         with:
           include-hidden-files: true
-          name: data3dBuilder-${{ matrix.platform }}-nothreads-${{ matrix.target }}
+          name: volumeShader-${{ matrix.platform }}-nothreads-${{ matrix.target }}
           path: |
-            ${{ github.workspace }}/map_generation/godot/
+            ${{ github.workspace }}/godot/volume-shader/
   
   merge:
     runs-on: ubuntu-latest
@@ -61,5 +61,5 @@ jobs:
         with:
           include-hidden-files: true
           name: ${{ github.event.repository.name }}
-          pattern: data3dBuilder-*
+          pattern: volumeShader-*
           delete-merged: true
