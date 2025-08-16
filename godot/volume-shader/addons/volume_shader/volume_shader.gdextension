@@ -1,0 +1,32 @@
+[configuration]
+
+entry_symbol = "volume_shader_init"
+compatibility_minimum = 4.4
+
+[icons]
+
+Terrain3D = "res://addons/volume_shader/icons/icon.svg"
+
+[libraries]
+
+windows.debug.x86_64 = "res://addons/volume_shader/bin/libvolume_shader.windows.debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/volume_shader/bin/libvolume_shader.windows.release.x86_64.dll"
+
+linux.debug.x86_64 = "res://addons/volume_shader/bin/libvolume_shader.linux.debug.x86_64.so"
+linux.release.x86_64 = "res://addons/volume_shader/bin/libvolume_shader.linux.release.x86_64.so"
+linux.debug.arm64 = "res://addons/volume_shader/bin/libvolume_shader.linux.debug.arm64.so"
+linux.release.arm64 = "res://addons/volume_shader/bin/libvolume_shader.linux.release.arm64.so"
+linux.debug.rv64 = "res://addons/volume_shader/bin/libvolume_shader.linux.debug.rv64.so"
+linux.release.rv64 = "res://addons/volume_shader/bin/libvolume_shader.linux.release.rv64.so"
+
+macos.debug = "res://addons/volume_shader/bin/libvolume_shader.macos.debug.framework"
+macos.release = "res://addons/volume_shader/bin/libvolume_shader.macos.release.framework"
+
+android.debug.arm64 = "res://addons/volume_shader/bin/libvolume_shader.android.debug.arm64.so"
+android.release.arm64 = "res://addons/volume_shader/bin/libvolume_shader.android.release.arm64.so"
+
+ios.debug = "res://addons/volume_shader/bin/libvolume_shader.ios.debug.universal.dylib"
+ios.release = "res://addons/volume_shader/bin/libvolume_shader.ios.release.universal.dylib"
+
+web.debug = "res://addons/volume_shader/bin/libvolume_shader.web.debug.wasm32.wasm"
+web.release = "res://addons/volume_shader/bin/libvolume_shader.web.release.wasm32.wasm"
