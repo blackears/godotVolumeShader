@@ -1,2 +1,5 @@
 /data_edit
 /test_image
+/godot/src/gen
+/godot/src/*.obj
+/godot/.sconsign.dblite
