@@ -36,8 +36,6 @@ jobs:
             ARCH: '${{ matrix.arch }}'
         shell: sh
         run: |
-            ls
-            pwd
             scons -C godot target=$TARGET platform='${{ matrix.platform }}' arch=$ARCH debug_symbols=no -j2
 
       - name: Prepare Files
