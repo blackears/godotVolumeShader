@@ -36,24 +36,23 @@ jobs:
             ARCH: '${{ matrix.arch }}'
         shell: sh
         run: |
-          scons -C data_3d_builder target=$TARGET platform='${{ matrix.platform }}' arch=$ARCH debug_symbols=no -j2
+          scons -C godot target=$TARGET platform='${{ matrix.platform }}' arch=$ARCH debug_symbols=no -j2
 
       - name: Prepare Files
         shell: sh
         run: |
-          cd data_3d_builder
-          ls -l godot/addons/data_3d_builder/bin/
-          strip godot/addons/data_3d_builder/bin/libdata_3d_buiilder.*
-          ls -l godot/addons/data_3d_builder/bin/
-          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/data_3d_builder/godot/addons/data_3d_builder/
+          cd godot
+          ls -l volume-shader/addons/volume_shader/bin/libvolume_shader.${{ matrix.platform }}.${{ matrix.target }}.*.so
+          strip volume-shader/addons/volume_shader/bin/libvolume_shader.${{ matrix.platform }}.${{ matrix.target }}.*.so
+          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/godot/volume-shader/godot/addons/volume_shader/
 
       - name: Upload Package
         uses: actions/upload-artifact@v4
         with:
           include-hidden-files: true
-          name: data3dBuilder-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}
+          name: volumeShader-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}
           path: |
-            ${{ github.workspace }}/data_3d_builder/godot/
+            ${{ github.workspace }}/godot/volume-shader/
   
   merge:
     runs-on: ubuntu-latest
@@ -64,5 +63,5 @@ jobs:
         with:
           include-hidden-files: true
           name: ${{ github.event.repository.name }}
-          pattern: data3dBuilder-*
+          pattern: volumeShader-*
           delete-merged: true
