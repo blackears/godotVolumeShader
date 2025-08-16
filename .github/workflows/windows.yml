@@ -38,7 +38,7 @@ jobs:
         run: |
             ls
             pwd
-            scons -C volume_shader target=$TARGET platform='${{ matrix.platform }}' arch=$ARCH debug_symbols=no -j2
+            scons -C godot/volume-shader target=$TARGET platform='${{ matrix.platform }}' arch=$ARCH debug_symbols=no -j2
 
       - name: Prepare Files
         shell: sh
