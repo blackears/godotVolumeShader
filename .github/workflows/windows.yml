@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           include-hidden-files: true
-          name: data3dBuilder-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}
+          name: volumeShader-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}
           path: |
             ${{ github.workspace }}/godot/volume-shader/
 
@@ -64,5 +64,5 @@ jobs:
         with:
           include-hidden-files: true
           name: ${{ github.event.repository.name }}
-          pattern: data3dBuilder-*
+          pattern: volumeShader-*
           delete-merged: true
