@@ -44,7 +44,7 @@ jobs:
           cd godot
           ls -l volume-shader/addons/volume_shader/bin/libvolume_shader.${{ matrix.platform }}.${{ matrix.target }}.*.so
           strip volume-shader/addons/volume_shader/bin/libvolume_shader.${{ matrix.platform }}.${{ matrix.target }}.*.so
-          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/godot/volume-shader/godot/addons/volume_shader/
+          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/godot/volume-shader/addons/volume_shader/
 
       - name: Upload Package
         uses: actions/upload-artifact@v4
