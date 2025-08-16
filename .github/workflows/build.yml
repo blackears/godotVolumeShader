@@ -89,12 +89,20 @@ jobs:
         run: |
             scons -C godot target=$TARGET platform='${{ matrix.platform }}' ${{ matrix.flags }} debug_symbols=no -j2
 
-      - name: Strip Libraries (Windows/Linux)
-        if: ${{ matrix.platform == 'windows' || matrix.platform == 'linux' }}
+      - name: Strip Libraries (Windows)
+        if: ${{ matrix.platform == 'windows' }}
         shell: sh
         run: |
           cd godot
-          strip volume-shader/addons/volume_shader/bin/libvolume_shader.*
+          strip volume-shader/addons/volume_shader/bin/libvolume_shader.${{ matrix.platform }}.${{ matrix.target }}.*.dll
+          ls -l volume-shader/addons/volume_shader/bin/
+
+      - name: Strip Libraries (Linux)
+        if: ${{ matrix.platform == 'linux' }}
+        shell: sh
+        run: |
+          cd godot
+          strip volume-shader/addons/volume_shader/bin/libvolume_shader.${{ matrix.platform }}.${{ matrix.target }}.*.so
           ls -l volume-shader/addons/volume_shader/bin/
 
       - name: Include Files
