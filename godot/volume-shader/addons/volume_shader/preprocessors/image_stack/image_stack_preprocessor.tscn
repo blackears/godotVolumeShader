@@ -1,0 +1,106 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3yli8rie2uc4"]
+
+[ext_resource type="Script" uid="uid://burclridiao10" path="res://addons/volume_shader/preprocessors/image_stack/image_stack_preprocessor.gd" id="1_epcie"]
+
+[node name="Window" type="Window"]
+initial_position = 1
+size = Vector2i(800, 600)
+exclusive = true
+script = ExtResource("1_epcie")
+
+[node name="ImageStackPreprocessor" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ImageStackPreprocessor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ImageStackPreprocessor/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ImageStackPreprocessor/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="ImageStackPreprocessor/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Input Images"
+
+[node name="ItemList_files" type="ItemList" parent="ImageStackPreprocessor/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ImageStackPreprocessor/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="bn_browse" type="Button" parent="ImageStackPreprocessor/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Browse...
+"
+
+[node name="bn_clear" type="Button" parent="ImageStackPreprocessor/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Clear"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ImageStackPreprocessor/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ImageStackPreprocessor/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Output"
+
+[node name="LineEdit_outfile" type="LineEdit" parent="ImageStackPreprocessor/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="bn_browse_output" type="Button" parent="ImageStackPreprocessor/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "..."
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ImageStackPreprocessor/VBoxContainer"]
+layout_mode = 2
+
+[node name="bn_bake" type="Button" parent="ImageStackPreprocessor/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Bake"
+
+[node name="bn_cancel" type="Button" parent="ImageStackPreprocessor/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="FileDialog_img_browse" type="FileDialog" parent="ImageStackPreprocessor"]
+unique_name_in_owner = true
+title = "Open File(s)"
+ok_button_text = "Open"
+file_mode = 1
+access = 2
+filters = PackedStringArray("*.png; PNG", "*.jpg *.jpeg; JPEG", "*.bmp; BMP", "*.ktx; KTX", "*.tga; Targa", "*.webp; Webp")
+
+[node name="FileDialog_save" type="FileDialog" parent="ImageStackPreprocessor"]
+unique_name_in_owner = true
+access = 2
+filters = PackedStringArray("*.res; Godot binary resource", "*.tres; Godot text resource")
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="ImageStackPreprocessor/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/bn_browse" to="." method="_on_bn_browse_pressed"]
+[connection signal="pressed" from="ImageStackPreprocessor/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/bn_clear" to="." method="_on_bn_clear_pressed"]
+[connection signal="pressed" from="ImageStackPreprocessor/VBoxContainer/HBoxContainer2/bn_browse_output" to="." method="_on_bn_browse_output_pressed"]
+[connection signal="pressed" from="ImageStackPreprocessor/VBoxContainer/HBoxContainer3/bn_bake" to="." method="_on_bn_bake_pressed"]
+[connection signal="pressed" from="ImageStackPreprocessor/VBoxContainer/HBoxContainer3/bn_cancel" to="." method="_on_bn_cancel_pressed"]
+[connection signal="files_selected" from="ImageStackPreprocessor/FileDialog_img_browse" to="." method="_on_file_dialog_img_browse_files_selected"]
+[connection signal="file_selected" from="ImageStackPreprocessor/FileDialog_save" to="." method="_on_file_dialog_save_file_selected"]

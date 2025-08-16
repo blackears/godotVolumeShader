@@ -1,0 +1,32 @@
+[configuration]
+
+entry_symbol = "data_3d_builder_init"
+compatibility_minimum = 4.4
+
+[icons]
+
+Terrain3D = "res://addons/data_3d_builder/icons/icon.svg"
+
+[libraries]
+
+windows.debug.x86_64 = "res://addons/data_3d_builder/bin/data3dBuilder.windows.debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/data_3d_builder/bin/data3dBuilder.windows.release.x86_64.dll"
+
+linux.debug.x86_64 = "res://addons/data_3d_builder/bin/data3dBuilder.linux.debug.x86_64.so"
+linux.release.x86_64 = "res://addons/data_3d_builder/bin/data3dBuilder.linux.release.x86_64.so"
+linux.debug.arm64 = "res://addons/data_3d_builder/bin/data3dBuilder.linux.debug.arm64.so"
+linux.release.arm64 = "res://addons/data_3d_builder/bin/data3dBuilder.linux.release.arm64.so"
+linux.debug.rv64 = "res://addons/data_3d_builder/bin/data3dBuilder.linux.debug.rv64.so"
+linux.release.rv64 = "res://addons/data_3d_builder/bin/data3dBuilder.linux.release.rv64.so"
+
+macos.debug = "res://addons/data_3d_builder/bin/data3dBuilder.macos.debug.framework"
+macos.release = "res://addons/data_3d_builder/bin/data3dBuilder.macos.release.framework"
+
+android.debug.arm64 = "res://addons/data_3d_builder/bin/data3dBuilder.android.debug.arm64.so"
+android.release.arm64 = "res://addons/data_3d_builder/bin/data3dBuilder.android.release.arm64.so"
+
+ios.debug = "res://addons/data_3d_builder/bin/data3dBuilder.ios.debug.universal.dylib"
+ios.release = "res://addons/data_3d_builder/bin/data3dBuilder.ios.release.universal.dylib"
+
+web.debug = "res://addons/data_3d_builder/bin/data3dBuilder.web.debug.wasm32.wasm"
+web.release = "res://addons/data_3d_builder/bin/data3dBuilder.web.release.wasm32.wasm"

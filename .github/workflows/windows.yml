@@ -1,0 +1,68 @@
+﻿name: 🪟 Windows Builds
+on: [ workflow_call, workflow_dispatch ]
+
+jobs:
+  build:
+    name: 🪟 Windows ${{ matrix.arch }} ${{ matrix.target }}
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [windows]
+        target: [debug, release]
+        arch: [x86_64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Base Dependencies
+        uses: ./.github/actions/base-deps
+        with:
+            platform: ${{ matrix.platform }}
+
+      - name: Setup Build Cache
+        uses: ./.github/actions/build-cache
+        with:
+          cache-name: ${{ matrix.platform }}-${{ matrix.target }}
+        continue-on-error: true
+
+      - name: Build
+        env:
+            SCONS_CACHE: "${{ github.workspace }}/.scons-cache/"
+            TARGET: 'template_${{ matrix.target }}'
+            ARCH: '${{ matrix.arch }}'
+        shell: sh
+        run: |
+            scons -C volume_shader target=$TARGET platform='${{ matrix.platform }}' arch=$ARCH debug_symbols=no -j2
+
+      - name: Prepare Files
+        shell: sh
+        run: |
+          cd data_3d_builder
+          ls -l volume-shader/addons/data_3d_builder/bin/
+          strip volume-shader/addons/data_3d_builder/bin/libdata_3d_buiilder.*
+          ls -l volume-shader/addons/data_3d_builder/bin/
+          cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/data_3d_builder/volume_shader/addons/data_3d_builder/
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v4
+        with:
+          include-hidden-files: true
+          name: data3dBuilder-${{ matrix.platform }}-${{ matrix.arch }}-${{ matrix.target }}
+          path: |
+            ${{ github.workspace }}/data_3d_builder/volume-shader/
+
+  merge:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          include-hidden-files: true
+          name: ${{ github.event.repository.name }}
+          pattern: data3dBuilder-*
+          delete-merged: true

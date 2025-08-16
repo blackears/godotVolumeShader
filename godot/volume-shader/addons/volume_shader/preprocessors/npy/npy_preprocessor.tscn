@@ -1,0 +1,107 @@
+[gd_scene load_steps=2 format=3 uid="uid://cucedx1tpj4f0"]
+
+[ext_resource type="Script" uid="uid://t5thb2dhn0p5" path="res://addons/volume_shader/preprocessors/npy/npy_preprocessor.gd" id="1_3oopi"]
+
+[node name="Window" type="Window"]
+initial_position = 1
+size = Vector2i(600, 400)
+exclusive = true
+script = ExtResource("1_3oopi")
+
+[node name="NpyPreprocessor" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NpyPreprocessor"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NpyPreprocessor/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NpyPreprocessor/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Npy File"
+
+[node name="LineEdit_npy_file" type="LineEdit" parent="NpyPreprocessor/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="bn_browse_npy" type="Button" parent="NpyPreprocessor/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "..."
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="NpyPreprocessor/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NpyPreprocessor/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Compression"
+
+[node name="OptionButton_compression" type="OptionButton" parent="NpyPreprocessor/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "RAW"
+popup/item_0/id = 0
+popup/item_1/text = "ZStd"
+popup/item_1/id = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NpyPreprocessor/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="NpyPreprocessor/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Output"
+
+[node name="LineEdit_outfile" type="LineEdit" parent="NpyPreprocessor/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="bn_browse_output" type="Button" parent="NpyPreprocessor/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "..."
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="NpyPreprocessor/VBoxContainer"]
+layout_mode = 2
+
+[node name="bn_bake" type="Button" parent="NpyPreprocessor/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Bake"
+
+[node name="bn_cancel" type="Button" parent="NpyPreprocessor/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="FileDialog_npy_browse" type="FileDialog" parent="NpyPreprocessor/VBoxContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.npy; Numpy data array")
+
+[node name="FileDialog_save" type="FileDialog" parent="NpyPreprocessor/VBoxContainer"]
+unique_name_in_owner = true
+auto_translate_mode = 1
+access = 2
+filters = PackedStringArray("*.vol3d; Volume 3D Database")
+
+[connection signal="pressed" from="NpyPreprocessor/VBoxContainer/HBoxContainer/bn_browse_npy" to="." method="_on_bn_browse_npy_pressed"]
+[connection signal="pressed" from="NpyPreprocessor/VBoxContainer/HBoxContainer2/bn_browse_output" to="." method="_on_bn_browse_output_pressed"]
+[connection signal="pressed" from="NpyPreprocessor/VBoxContainer/HBoxContainer3/bn_bake" to="." method="_on_bn_bake_pressed"]
+[connection signal="pressed" from="NpyPreprocessor/VBoxContainer/HBoxContainer3/bn_cancel" to="." method="_on_bn_cancel_pressed"]
+[connection signal="file_selected" from="NpyPreprocessor/VBoxContainer/FileDialog_npy_browse" to="." method="_on_file_dialog_npy_browse_file_selected"]
+[connection signal="file_selected" from="NpyPreprocessor/VBoxContainer/FileDialog_save" to="." method="_on_file_dialog_save_file_selected"]

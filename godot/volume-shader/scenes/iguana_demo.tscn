@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=4 uid="uid://b4a8rdyjvks8f"]
+
+[ext_resource type="Shader" uid="uid://cpja6moo1molq" path="res://addons/volume_shader/volume_shader.gdshader" id="1_m7yog"]
+[ext_resource type="ImageTexture3D" uid="uid://dajjxxtlxtv5n" path="res://assets/iguana_mipmap_2.res" id="2_m7yog"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jyhfs"]
+
+[sub_resource type="Gradient" id="Gradient_tbgi4"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0661765, 0.128676, 0.272059, 0.316176, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.45198, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tefeu"]
+gradient = SubResource("Gradient_tbgi4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ve1ds"]
+render_priority = 0
+shader = ExtResource("1_m7yog")
+shader_parameter/texture_volume = ExtResource("2_m7yog")
+shader_parameter/gradient = SubResource("GradientTexture1D_tefeu")
+shader_parameter/bounding_radius = 1.0
+shader_parameter/layers = 1000
+shader_parameter/gamma = 2.0
+shader_parameter/flip_normals = false
+shader_parameter/num_exclusion_planes = 0
+shader_parameter/exclusion_planes = PackedVector4Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_0wfyh"]
+resource_name = "play_noise"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sugp2"]
+_data = {
+&"play_noise": SubResource("Animation_0wfyh")
+}
+
+[node name="Main" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 0.999444, -0.0333471, 0, 0.0333471, 0.999444, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.865, 0, 0, 0, -0.0751846, 0.888028, 0, -1.1275, -0.0592162, 0, 0, 0)
+mesh = SubResource("BoxMesh_jyhfs")
+surface_material_override/0 = SubResource("ShaderMaterial_ve1ds")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sugp2")
+}
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.892979, 0.0150095, 0.449848, -0.0150095, 0.999881, -0.00356686, -0.449848, -0.00356685, 0.893098, 0.619779, 0.0354366, 1.06207)
