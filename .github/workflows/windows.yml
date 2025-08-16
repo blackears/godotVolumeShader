@@ -42,9 +42,9 @@ jobs:
         shell: sh
         run: |
           cd godot
-          ls -l volume-shader/addons/volume_shader/bin/
+          echo ${{ matrix.platform }}.${{ matrix.target }}
+          ls -l volume-shader/addons/volume_shader/bin/libvolume_shader.${{ matrix.platform }}.${{ matrix.target }}.*.dll
           strip volume-shader/addons/volume_shader/bin/libvolume_shader.${{ matrix.platform }}.${{ matrix.target }}.*.dll
-          ls -l volume-shader/addons/volume_shader/bin/
           cp '${{ github.workspace }}/README.md' '${{ github.workspace }}/LICENSE.txt' ${{ github.workspace }}/godot/volume-shader/addons/volume_shader/
 
       - name: Upload Package
